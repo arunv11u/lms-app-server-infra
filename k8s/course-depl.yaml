@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: course-deployment
+  template:
+    metadata:
+      labels:
+        app: course-deployment
+    spec:
+      containers:
+        - name: course-deployment
+          image: arunvaradharajalu/lms-api-course
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "100m"
+          ports:      
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: dev
+            - name: MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: main-mongodb-db-credentials
+                  key: MONGODB_USERNAME
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: main-mongodb-db-credentials
+                  key: MONGODB_PASSWORD
+        
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: course-service
+spec:
+  type: ClusterIP  
+  selector:
+    app: course-deployment
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

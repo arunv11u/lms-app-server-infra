@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-deployment
+  template:
+    metadata:
+      labels:
+        app: notification-deployment
+    spec:
+      containers:
+        - name: notification-deployment
+          image: arunvaradharajalu/lms-api-notification
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "100m"
+          ports:      
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: dev
+            - name: MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: notification-mongodb-db-credentials
+                  key: MONGODB_USERNAME
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: notification-mongodb-db-credentials
+                  key: MONGODB_PASSWORD
+            - name: MAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mail-credentials
+                  key: MAIL_USER
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mail-credentials
+                  key: MAIL_PASSWORD
+        
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-service
+spec:
+  type: ClusterIP  
+  selector:
+    app: notification-deployment
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
