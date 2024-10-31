@@ -44,6 +44,16 @@ spec:
                 secretKeyRef:
                   name: mail-credentials
                   key: MAIL_PASSWORD
+            - name: STRIPE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-api-credentials
+                  key: STRIPE_API_KEY
+            - name: STRIPE_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-api-credentials
+                  key: STRIPE_WEBHOOK_SECRET
         
 ---
 

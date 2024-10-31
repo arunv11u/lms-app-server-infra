@@ -34,6 +34,36 @@ spec:
                 secretKeyRef:
                   name: main-mongodb-db-credentials
                   key: MONGODB_PASSWORD
+            - name: JWT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-credentials
+                  key: JWT_PRIVATE_KEY
+            - name: S3_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_ACCESS_KEY_ID
+            - name: S3_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_SECRET_ACCESS_KEY
+            - name: VIDEO_TRANSCODER_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: transcoder-credentials
+                  key: VIDEO_TRANSCODER_ACCESS_KEY
+            - name: VIDEO_TRANSCODER_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: transcoder-credentials
+                  key: VIDEO_TRANSCODER_SECRET_ACCESS_KEY
+            - name: STRIPE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-api-credentials
+                  key: STRIPE_API_KEY
         
 ---
 

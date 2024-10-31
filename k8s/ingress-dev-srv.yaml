@@ -12,6 +12,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "90"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1200"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1200"
+    nginx.ingress.kubernetes.io/proxy-connection-upgrade: "true"
 spec:
   ingressClassName: nginx
   rules:

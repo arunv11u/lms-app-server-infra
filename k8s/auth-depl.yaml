@@ -49,6 +49,16 @@ spec:
                 secretKeyRef:
                   name: s3-credentials
                   key: S3_SECRET_ACCESS_KEY
+            - name: GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: google-oauth-credentials
+                  key: GOOGLE_CLIENT_ID
+            - name: GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: google-oauth-credentials
+                  key: GOOGLE_CLIENT_SECRET
         
 ---
 
